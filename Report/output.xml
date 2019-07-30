@@ -1,0 +1,473 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot rpa="false" generated="20190730 18:03:57.269" generator="Robot 3.1.1 (Python 2.7.13 on win32)">
+<suite source="E:\Projects\HaveIBeenpwned_RobotFramework\TestSuite\EmailID_PawnCheck.robot" id="s1" name="EmailID PawnCheck">
+<test id="s1-t1" name="TEST EMail Frontend">
+<kw name="Setup chromedriver" library="resource">
+<kw name="Set Environment Variable" library="OperatingSystem">
+<doc>Sets an environment variable to a specified value.</doc>
+<arguments>
+<arg>webdriver.chrome.driver</arg>
+<arg>${EXECDIR}/chromedriver.exe</arg>
+</arguments>
+<msg timestamp="20190730 18:03:57.439" level="INFO">Environment variable 'webdriver.chrome.driver' set to value 'E:\Projects\HaveIBeenpwned_RobotFramework/chromedriver.exe'.</msg>
+<status status="PASS" endtime="20190730 18:03:57.439" starttime="20190730 18:03:57.439"></status>
+</kw>
+<status status="PASS" endtime="20190730 18:03:57.439" starttime="20190730 18:03:57.438"></status>
+</kw>
+<kw type="for" name="${ITERATION} IN RANGE [ 1 | ${LOOP} ]">
+<kw type="foritem" name="${ITERATION} = 1">
+<kw name="Log To Console" library="BuiltIn">
+<doc>Logs the given message to the console.</doc>
+<arguments>
+<arg>\nIteration No.: ${ITERATION}</arg>
+</arguments>
+<status status="PASS" endtime="20190730 18:03:57.440" starttime="20190730 18:03:57.440"></status>
+</kw>
+<kw name="Run Keyword And Continue On Failure" library="BuiltIn">
+<doc>Runs the keyword and continues execution even if a failure occurs.</doc>
+<arguments>
+<arg>portal check</arg>
+</arguments>
+<kw name="portal check" library="resource">
+<kw name="Open Browser" library="SeleniumLibrary">
+<doc>Opens a new browser instance to the given ``url``.</doc>
+<arguments>
+<arg>${SITE_URL}</arg>
+<arg>${CHROME}</arg>
+</arguments>
+<msg timestamp="20190730 18:03:57.441" level="INFO">Opening browser 'CHROME' to base url 'https://haveibeenpwned.com/'.</msg>
+<status status="PASS" endtime="20190730 18:04:02.819" starttime="20190730 18:03:57.441"></status>
+</kw>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<doc>Waits until element ``locator`` is visible.</doc>
+<arguments>
+<arg>xpath=//p[contains(text(),'Check if you have an account that has been comprom')]</arg>
+</arguments>
+<status status="PASS" endtime="20190730 18:04:02.853" starttime="20190730 18:04:02.819"></status>
+</kw>
+<kw name="Get File" library="OperatingSystem">
+<doc>Returns the contents of a specified file.</doc>
+<arguments>
+<arg>E:\\Projects\\HaveIBeenpwned_RobotFramework\\Res\\emailidlist.txt</arg>
+</arguments>
+<assign>
+<var>${contents}</var>
+</assign>
+<msg timestamp="20190730 18:04:02.853" html="yes" level="INFO">Getting file '&lt;a href="file://E:\Projects\HaveIBeenpwned_RobotFramework\Res\emailidlist.txt"&gt;E:\Projects\HaveIBeenpwned_RobotFramework\Res\emailidlist.txt&lt;/a&gt;'.</msg>
+<msg timestamp="20190730 18:04:02.854" level="INFO">${contents} = test@something.com
+qwerty@somehting.com
+somextra@gmail.com</msg>
+<status status="PASS" endtime="20190730 18:04:02.854" starttime="20190730 18:04:02.853"></status>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<doc>Logs the given message to the console.</doc>
+<arguments>
+<arg>${contents}</arg>
+</arguments>
+<status status="PASS" endtime="20190730 18:04:02.855" starttime="20190730 18:04:02.854"></status>
+</kw>
+<kw name="Split To Lines" library="String">
+<doc>Splits the given string to lines.</doc>
+<arguments>
+<arg>${contents}</arg>
+</arguments>
+<assign>
+<var>@{lines}</var>
+</assign>
+<msg timestamp="20190730 18:04:02.855" level="INFO">3 lines returned</msg>
+<msg timestamp="20190730 18:04:02.856" level="INFO">@{lines} = [ test@something.com | qwerty@somehting.com | somextra@gmail.com ]</msg>
+<status status="PASS" endtime="20190730 18:04:02.856" starttime="20190730 18:04:02.855"></status>
+</kw>
+<kw type="for" name="${line} IN [ @{lines} ]">
+<kw type="foritem" name="${line} = test@something.com">
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${line}</arg>
+<arg>WARN</arg>
+</arguments>
+<msg timestamp="20190730 18:04:02.856" level="WARN">test@something.com</msg>
+<status status="PASS" endtime="20190730 18:04:02.861" starttime="20190730 18:04:02.856"></status>
+</kw>
+<kw name="Get Variable Value" library="BuiltIn">
+<doc>Returns variable value or ``default`` if the variable does not exist.</doc>
+<arguments>
+<arg>${line}</arg>
+</arguments>
+<assign>
+<var>${Value}</var>
+</assign>
+<msg timestamp="20190730 18:04:02.862" level="INFO">${Value} = test@something.com</msg>
+<status status="PASS" endtime="20190730 18:04:02.862" starttime="20190730 18:04:02.861"></status>
+</kw>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<doc>Waits until element ``locator`` is visible.</doc>
+<arguments>
+<arg>xpath=${input_txt}</arg>
+</arguments>
+<status status="PASS" endtime="20190730 18:04:02.888" starttime="20190730 18:04:02.862"></status>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<doc>Types the given ``text`` into text field identified by ``locator``.</doc>
+<arguments>
+<arg>xpath=${input_txt}</arg>
+<arg>${Value}</arg>
+</arguments>
+<msg timestamp="20190730 18:04:02.888" level="INFO">Typing text 'test@something.com' into text field 'xpath=//input[@id='Account']'.</msg>
+<status status="PASS" endtime="20190730 18:04:02.987" starttime="20190730 18:04:02.888"></status>
+</kw>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<doc>Waits until element ``locator`` is visible.</doc>
+<arguments>
+<arg>xpath=${submit_btn}</arg>
+</arguments>
+<status status="PASS" endtime="20190730 18:04:03.013" starttime="20190730 18:04:02.987"></status>
+</kw>
+<kw name="Click Element" library="SeleniumLibrary">
+<doc>Click element identified by ``locator``.</doc>
+<arguments>
+<arg>xpath=${submit_btn}</arg>
+</arguments>
+<msg timestamp="20190730 18:04:03.013" level="INFO">Clicking element 'xpath=//button[@id='searchPwnage']'.</msg>
+<status status="PASS" endtime="20190730 18:04:03.063" starttime="20190730 18:04:03.013"></status>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<doc>Logs the given message to the console.</doc>
+<arguments>
+<arg>EMail ID Entered and Submitted!!!</arg>
+</arguments>
+<status status="PASS" endtime="20190730 18:04:03.064" starttime="20190730 18:04:03.063"></status>
+</kw>
+<kw name="Sleep" library="BuiltIn">
+<doc>Pauses the test executed for the given time.</doc>
+<arguments>
+<arg>5</arg>
+</arguments>
+<msg timestamp="20190730 18:04:08.064" level="INFO">Slept 5 seconds</msg>
+<status status="PASS" endtime="20190730 18:04:08.064" starttime="20190730 18:04:03.064"></status>
+</kw>
+<kw name="Run Keyword And Return Status" library="BuiltIn">
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<arguments>
+<arg>Wait Until Element Is Visible</arg>
+<arg>${pwned_found}</arg>
+</arguments>
+<assign>
+<var>${presence_status}</var>
+</assign>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<doc>Waits until element ``locator`` is visible.</doc>
+<arguments>
+<arg>${pwned_found}</arg>
+</arguments>
+<status status="PASS" endtime="20190730 18:04:08.106" starttime="20190730 18:04:08.065"></status>
+</kw>
+<msg timestamp="20190730 18:04:08.106" level="INFO">${presence_status} = True</msg>
+<status status="PASS" endtime="20190730 18:04:08.106" starttime="20190730 18:04:08.064"></status>
+</kw>
+<kw name="Run Keyword If" library="BuiltIn">
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<arguments>
+<arg>'${presence_status}' == 'True'</arg>
+<arg>Run Keywords</arg>
+<arg>Taking Text</arg>
+</arguments>
+<kw name="Run Keywords" library="BuiltIn">
+<doc>Executes all the given keywords in a sequence.</doc>
+<arguments>
+<arg>Taking Text</arg>
+</arguments>
+<kw name="Taking Text" library="resource">
+<kw name="Get Text" library="SeleniumLibrary">
+<doc>Returns the text value of element identified by ``locator``.</doc>
+<arguments>
+<arg>${pwnCount}</arg>
+</arguments>
+<assign>
+<var>${text_value}</var>
+</assign>
+<msg timestamp="20190730 18:04:08.136" level="INFO">${text_value} = Pwned on 14 breached sites and found 1 paste (subscribe to search sensitive breaches)</msg>
+<status status="PASS" endtime="20190730 18:04:08.136" starttime="20190730 18:04:08.108"></status>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<doc>Logs the given message to the console.</doc>
+<arguments>
+<arg>Pawn found</arg>
+</arguments>
+<status status="PASS" endtime="20190730 18:04:08.137" starttime="20190730 18:04:08.136"></status>
+</kw>
+<status status="PASS" endtime="20190730 18:04:08.137" starttime="20190730 18:04:08.107"></status>
+</kw>
+<status status="PASS" endtime="20190730 18:04:08.137" starttime="20190730 18:04:08.107"></status>
+</kw>
+<status status="PASS" endtime="20190730 18:04:08.137" starttime="20190730 18:04:08.107"></status>
+</kw>
+<status status="PASS" endtime="20190730 18:04:08.137" starttime="20190730 18:04:02.856"></status>
+</kw>
+<kw type="foritem" name="${line} = qwerty@somehting.com">
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${line}</arg>
+<arg>WARN</arg>
+</arguments>
+<msg timestamp="20190730 18:04:08.138" level="WARN">qwerty@somehting.com</msg>
+<status status="PASS" endtime="20190730 18:04:08.138" starttime="20190730 18:04:08.138"></status>
+</kw>
+<kw name="Get Variable Value" library="BuiltIn">
+<doc>Returns variable value or ``default`` if the variable does not exist.</doc>
+<arguments>
+<arg>${line}</arg>
+</arguments>
+<assign>
+<var>${Value}</var>
+</assign>
+<msg timestamp="20190730 18:04:08.139" level="INFO">${Value} = qwerty@somehting.com</msg>
+<status status="PASS" endtime="20190730 18:04:08.139" starttime="20190730 18:04:08.139"></status>
+</kw>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<doc>Waits until element ``locator`` is visible.</doc>
+<arguments>
+<arg>xpath=${input_txt}</arg>
+</arguments>
+<status status="PASS" endtime="20190730 18:04:08.154" starttime="20190730 18:04:08.139"></status>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<doc>Types the given ``text`` into text field identified by ``locator``.</doc>
+<arguments>
+<arg>xpath=${input_txt}</arg>
+<arg>${Value}</arg>
+</arguments>
+<msg timestamp="20190730 18:04:08.155" level="INFO">Typing text 'qwerty@somehting.com' into text field 'xpath=//input[@id='Account']'.</msg>
+<status status="PASS" endtime="20190730 18:04:08.230" starttime="20190730 18:04:08.154"></status>
+</kw>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<doc>Waits until element ``locator`` is visible.</doc>
+<arguments>
+<arg>xpath=${submit_btn}</arg>
+</arguments>
+<status status="PASS" endtime="20190730 18:04:08.247" starttime="20190730 18:04:08.230"></status>
+</kw>
+<kw name="Click Element" library="SeleniumLibrary">
+<doc>Click element identified by ``locator``.</doc>
+<arguments>
+<arg>xpath=${submit_btn}</arg>
+</arguments>
+<msg timestamp="20190730 18:04:08.248" level="INFO">Clicking element 'xpath=//button[@id='searchPwnage']'.</msg>
+<status status="PASS" endtime="20190730 18:04:08.301" starttime="20190730 18:04:08.247"></status>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<doc>Logs the given message to the console.</doc>
+<arguments>
+<arg>EMail ID Entered and Submitted!!!</arg>
+</arguments>
+<status status="PASS" endtime="20190730 18:04:08.302" starttime="20190730 18:04:08.301"></status>
+</kw>
+<kw name="Sleep" library="BuiltIn">
+<doc>Pauses the test executed for the given time.</doc>
+<arguments>
+<arg>5</arg>
+</arguments>
+<msg timestamp="20190730 18:04:13.302" level="INFO">Slept 5 seconds</msg>
+<status status="PASS" endtime="20190730 18:04:13.302" starttime="20190730 18:04:08.302"></status>
+</kw>
+<kw name="Run Keyword And Return Status" library="BuiltIn">
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<arguments>
+<arg>Wait Until Element Is Visible</arg>
+<arg>${pwned_found}</arg>
+</arguments>
+<assign>
+<var>${presence_status}</var>
+</assign>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<doc>Waits until element ``locator`` is visible.</doc>
+<arguments>
+<arg>${pwned_found}</arg>
+</arguments>
+<kw name="Capture Page Screenshot" library="SeleniumLibrary">
+<doc>Takes screenshot of the current page and embeds it into log file.</doc>
+<msg timestamp="20190730 18:04:18.761" html="yes" level="INFO">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-5.png"&gt;&lt;img src="selenium-screenshot-5.png" width="800px"&gt;&lt;/a&gt;</msg>
+<status status="PASS" endtime="20190730 18:04:18.761" starttime="20190730 18:04:18.331"></status>
+</kw>
+<msg timestamp="20190730 18:04:18.762" level="FAIL">Element '//h2[contains(text(),'pwned!')]' not visible after 5 seconds.</msg>
+<status status="FAIL" endtime="20190730 18:04:18.762" starttime="20190730 18:04:13.303"></status>
+</kw>
+<msg timestamp="20190730 18:04:18.762" level="INFO">${presence_status} = False</msg>
+<status status="PASS" endtime="20190730 18:04:18.762" starttime="20190730 18:04:13.302"></status>
+</kw>
+<kw name="Run Keyword If" library="BuiltIn">
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<arguments>
+<arg>'${presence_status}' == 'True'</arg>
+<arg>Run Keywords</arg>
+<arg>Taking Text</arg>
+</arguments>
+<status status="PASS" endtime="20190730 18:04:18.762" starttime="20190730 18:04:18.762"></status>
+</kw>
+<status status="PASS" endtime="20190730 18:04:18.762" starttime="20190730 18:04:08.137"></status>
+</kw>
+<kw type="foritem" name="${line} = somextra@gmail.com">
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${line}</arg>
+<arg>WARN</arg>
+</arguments>
+<msg timestamp="20190730 18:04:18.763" level="WARN">somextra@gmail.com</msg>
+<status status="PASS" endtime="20190730 18:04:18.764" starttime="20190730 18:04:18.763"></status>
+</kw>
+<kw name="Get Variable Value" library="BuiltIn">
+<doc>Returns variable value or ``default`` if the variable does not exist.</doc>
+<arguments>
+<arg>${line}</arg>
+</arguments>
+<assign>
+<var>${Value}</var>
+</assign>
+<msg timestamp="20190730 18:04:18.765" level="INFO">${Value} = somextra@gmail.com</msg>
+<status status="PASS" endtime="20190730 18:04:18.765" starttime="20190730 18:04:18.764"></status>
+</kw>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<doc>Waits until element ``locator`` is visible.</doc>
+<arguments>
+<arg>xpath=${input_txt}</arg>
+</arguments>
+<status status="PASS" endtime="20190730 18:04:18.781" starttime="20190730 18:04:18.765"></status>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<doc>Types the given ``text`` into text field identified by ``locator``.</doc>
+<arguments>
+<arg>xpath=${input_txt}</arg>
+<arg>${Value}</arg>
+</arguments>
+<msg timestamp="20190730 18:04:18.781" level="INFO">Typing text 'somextra@gmail.com' into text field 'xpath=//input[@id='Account']'.</msg>
+<status status="PASS" endtime="20190730 18:04:18.848" starttime="20190730 18:04:18.781"></status>
+</kw>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<doc>Waits until element ``locator`` is visible.</doc>
+<arguments>
+<arg>xpath=${submit_btn}</arg>
+</arguments>
+<status status="PASS" endtime="20190730 18:04:18.864" starttime="20190730 18:04:18.848"></status>
+</kw>
+<kw name="Click Element" library="SeleniumLibrary">
+<doc>Click element identified by ``locator``.</doc>
+<arguments>
+<arg>xpath=${submit_btn}</arg>
+</arguments>
+<msg timestamp="20190730 18:04:18.865" level="INFO">Clicking element 'xpath=//button[@id='searchPwnage']'.</msg>
+<status status="PASS" endtime="20190730 18:04:18.895" starttime="20190730 18:04:18.865"></status>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<doc>Logs the given message to the console.</doc>
+<arguments>
+<arg>EMail ID Entered and Submitted!!!</arg>
+</arguments>
+<status status="PASS" endtime="20190730 18:04:18.896" starttime="20190730 18:04:18.896"></status>
+</kw>
+<kw name="Sleep" library="BuiltIn">
+<doc>Pauses the test executed for the given time.</doc>
+<arguments>
+<arg>5</arg>
+</arguments>
+<msg timestamp="20190730 18:04:23.897" level="INFO">Slept 5 seconds</msg>
+<status status="PASS" endtime="20190730 18:04:23.897" starttime="20190730 18:04:18.897"></status>
+</kw>
+<kw name="Run Keyword And Return Status" library="BuiltIn">
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<arguments>
+<arg>Wait Until Element Is Visible</arg>
+<arg>${pwned_found}</arg>
+</arguments>
+<assign>
+<var>${presence_status}</var>
+</assign>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<doc>Waits until element ``locator`` is visible.</doc>
+<arguments>
+<arg>${pwned_found}</arg>
+</arguments>
+<status status="PASS" endtime="20190730 18:04:23.917" starttime="20190730 18:04:23.898"></status>
+</kw>
+<msg timestamp="20190730 18:04:23.917" level="INFO">${presence_status} = True</msg>
+<status status="PASS" endtime="20190730 18:04:23.917" starttime="20190730 18:04:23.897"></status>
+</kw>
+<kw name="Run Keyword If" library="BuiltIn">
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<arguments>
+<arg>'${presence_status}' == 'True'</arg>
+<arg>Run Keywords</arg>
+<arg>Taking Text</arg>
+</arguments>
+<kw name="Run Keywords" library="BuiltIn">
+<doc>Executes all the given keywords in a sequence.</doc>
+<arguments>
+<arg>Taking Text</arg>
+</arguments>
+<kw name="Taking Text" library="resource">
+<kw name="Get Text" library="SeleniumLibrary">
+<doc>Returns the text value of element identified by ``locator``.</doc>
+<arguments>
+<arg>${pwnCount}</arg>
+</arguments>
+<assign>
+<var>${text_value}</var>
+</assign>
+<msg timestamp="20190730 18:04:23.938" level="INFO">${text_value} = Pwned on 10 breached sites and found no pastes (subscribe to search sensitive breaches)</msg>
+<status status="PASS" endtime="20190730 18:04:23.938" starttime="20190730 18:04:23.918"></status>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<doc>Logs the given message to the console.</doc>
+<arguments>
+<arg>Pawn found</arg>
+</arguments>
+<status status="PASS" endtime="20190730 18:04:23.939" starttime="20190730 18:04:23.938"></status>
+</kw>
+<status status="PASS" endtime="20190730 18:04:23.939" starttime="20190730 18:04:23.918"></status>
+</kw>
+<status status="PASS" endtime="20190730 18:04:23.939" starttime="20190730 18:04:23.918"></status>
+</kw>
+<status status="PASS" endtime="20190730 18:04:23.939" starttime="20190730 18:04:23.917"></status>
+</kw>
+<status status="PASS" endtime="20190730 18:04:23.939" starttime="20190730 18:04:18.763"></status>
+</kw>
+<status status="PASS" endtime="20190730 18:04:23.939" starttime="20190730 18:04:02.856"></status>
+</kw>
+<kw name="Close Browser" library="SeleniumLibrary">
+<doc>Closes the current browser.</doc>
+<status status="PASS" endtime="20190730 18:04:26.007" starttime="20190730 18:04:23.939"></status>
+</kw>
+<status status="PASS" endtime="20190730 18:04:26.007" starttime="20190730 18:03:57.440"></status>
+</kw>
+<status status="PASS" endtime="20190730 18:04:26.007" starttime="20190730 18:03:57.440"></status>
+</kw>
+<status status="PASS" endtime="20190730 18:04:26.007" starttime="20190730 18:03:57.440"></status>
+</kw>
+<status status="PASS" endtime="20190730 18:04:26.007" starttime="20190730 18:03:57.439"></status>
+</kw>
+<kw name="Close Browser" library="SeleniumLibrary">
+<doc>Closes the current browser.</doc>
+<status status="PASS" endtime="20190730 18:04:26.008" starttime="20190730 18:04:26.008"></status>
+</kw>
+<status status="PASS" endtime="20190730 18:04:26.009" critical="yes" starttime="20190730 18:03:57.438"></status>
+</test>
+<status status="PASS" endtime="20190730 18:04:26.010" starttime="20190730 18:03:57.271"></status>
+</suite>
+<statistics>
+<total>
+<stat fail="0" pass="1">Critical Tests</stat>
+<stat fail="0" pass="1">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat fail="0" id="s1" name="EmailID PawnCheck" pass="1">EmailID PawnCheck</stat>
+</suite>
+</statistics>
+<errors>
+<msg timestamp="20190730 18:04:02.856" level="WARN">test@something.com</msg>
+<msg timestamp="20190730 18:04:08.138" level="WARN">qwerty@somehting.com</msg>
+<msg timestamp="20190730 18:04:18.763" level="WARN">somextra@gmail.com</msg>
+</errors>
+</robot>

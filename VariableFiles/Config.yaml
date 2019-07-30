@@ -1,0 +1,10 @@
+# Device Configuration
+LOOP: '2'
+CHROME: 'CHROME'
+
+SITE_URL: 'https://haveibeenpwned.com/'
+
+i: 0
+VALUES: 5
+
+email_id: pawan.jdubey@gmail.com
